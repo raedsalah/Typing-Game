@@ -1,7 +1,17 @@
 window.addEventListener('load', init);
 
+// Levels
+const levels = {
+    easy: 5,
+    medium: 3,
+    hard:2
+}
+
+//to change level
+const currentLevel = level.easy;
+
 //global variables 
-let time = 5;
+let time = currentLevel;
 let score = 0;
 let isPlaying;
 
@@ -26,7 +36,7 @@ const words = [
     'is',
     'a',
     'test',
-    'of ',
+    'of',
     'random',
     'words',
     'investigating',
@@ -51,7 +61,20 @@ function init(){
 function startMatch(){
     if(matchWord()){
         console.log('MATCH!!!');
+        isPlaying = true;
+        time = currentLevel + 1;
+        showWord(words);
+        wordInput.value = "";
+        score++;
     }
+    //if score is -1 show 0
+    if(score === -1){
+        scoreDisplay.innerHTML= 0;
+    }else{
+        // increment score
+        scoreDisplay.innerHTML = score;
+    }
+    
 }
 // matc to input
 function matchWord(){
@@ -89,5 +112,6 @@ function countdown(){
 function checkStatus(){
     if(!isPlaying && time === 0){
         message.innerHTML = 'Game Over!!!';
+        score = -1;
     }
 }
